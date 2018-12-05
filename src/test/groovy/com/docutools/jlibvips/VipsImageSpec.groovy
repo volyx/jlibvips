@@ -51,4 +51,29 @@ class VipsImageSpec extends Specification {
         "500x500.jpg" | 3
     }
 
+    def "creating image pyramids"() {
+        given: "a VipsImage"
+        def file = copyResourceToFS(resource)
+        def image = VipsImage.fromFile(file)
+        def outDir = newTempDir()
+        when: "calling dzsave"
+        image.deepZoom(outDir)
+                .layout(layout)
+                .background(background)
+                .rotate(angle)
+                .container(container)
+                .tileSize(tileSize)
+                .strip()
+                .inMemory()
+                .save()
+        then: "generates an image pyramid on the file system"
+        Files.exists outDir.resolve("0/0/0.jpg")
+        cleanup:
+        Files.deleteIfExists(file)
+        outDir.toFile().deleteDir()
+        where:
+        resource      | layout                 | background         | angle         | container                    | tileSize
+        "500x500.jpg" | DeepZoomLayouts.Google | [0.0f, 0.0f, 0.0f] | VipsAngle.D90 | DeepZoomContainer.FileSystem | 256
+    }
+
 }

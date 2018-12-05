@@ -16,4 +16,8 @@ public interface VipsBindings extends Library {
     int vips_image_get_height(Pointer pointer);
 
     int vips_image_get_bands(Pointer pointer);
+
+    int vips_dzsave(Pointer pointer, String outDir, Object...args);
+
+    Pointer vips_array_double_new(double[] array, int n);
 }

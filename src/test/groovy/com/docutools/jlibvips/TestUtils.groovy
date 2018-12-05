@@ -15,6 +15,10 @@ class TestUtils {
         return tempFile
     }
 
+    static Path newTempDir() {
+        return Files.createTempDirectory("jlibvips")
+    }
+
     private TestUtils() {
     }
 

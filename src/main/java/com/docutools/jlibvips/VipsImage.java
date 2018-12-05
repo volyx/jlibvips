@@ -30,6 +30,14 @@ public class VipsImage {
         this.ptr = ptr;
     }
 
+    Pointer getPtr() {
+        return ptr;
+    }
+
+    public DeepZoomOperation deepZoom(Path outDir) {
+        return new DeepZoomOperation(this, outDir);
+    }
+
     public int getWidth() {
         return VipsBindings.INSTANCE.vips_image_get_width(ptr);
     }
