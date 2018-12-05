@@ -8,6 +8,21 @@ import static com.docutools.jlibvips.TestUtils.*
 
 class VipsImageSpec extends Specification {
 
+    def "get resolution of image"() {
+        given: "a arbitrary image file"
+        def file = copyResourceToFS(resource)
+        when: "loading it as VipsImage"
+        def image = VipsImage.fromFile(file)
+        then: "the width and height should be as original"
+        image.width == width
+        image.height == height
+        cleanup:
+        Files.deleteIfExists(file)
+        where:
+        resource      | width | height
+        "500x500.jpg" | 500   | 500
+    }
+
     def "loading vectorised PDFs"() {
         given: "a large vectorised PDF"
         def pdfFile = copyResourceToFS(pdfResource)
@@ -20,6 +35,20 @@ class VipsImageSpec extends Specification {
         Files.deleteIfExists(pdfFile)
         where:
         pdfResource << ["1.pdf"]
+    }
+
+    def "get bands of image"() {
+        given: "a arbitrary image file"
+        def file = copyResourceToFS(resource)
+        when: "loading it as VipsImage"
+        def image = VipsImage.fromFile(file)
+        then: "the number of bands is accessible"
+        image.bands == bands
+        cleanup:
+        Files.deleteIfExists(file)
+        where:
+        resource      | bands
+        "500x500.jpg" | 3
     }
 
 }

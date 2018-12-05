@@ -19,6 +19,11 @@ public class VipsImage {
         return image;
     }
 
+    public static VipsImage fromFile(Path p) {
+        var ptr = VipsBindings.INSTANCE.vips_image_new_from_file(p.toString());
+        return new VipsImage(ptr);
+    }
+
     private final Pointer ptr;
 
     private VipsImage(final Pointer ptr) {
@@ -31,5 +36,9 @@ public class VipsImage {
 
     public int getHeight() {
         return VipsBindings.INSTANCE.vips_image_get_height(ptr);
+    }
+
+    public int getBands() {
+        return VipsBindings.INSTANCE.vips_image_get_bands(ptr);
     }
 }

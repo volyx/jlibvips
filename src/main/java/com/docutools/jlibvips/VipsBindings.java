@@ -8,8 +8,12 @@ public interface VipsBindings extends Library {
 
     VipsBindings INSTANCE = Native.load("libvips.42.dylib", VipsBindings.class);
 
+    Pointer vips_image_new_from_file(String fileName, Object...args);
+
     int vips_pdfload(String fileName, Pointer[] pointer, Object...args);
 
     int vips_image_get_width(Pointer pointer);
     int vips_image_get_height(Pointer pointer);
+
+    int vips_image_get_bands(Pointer pointer);
 }
