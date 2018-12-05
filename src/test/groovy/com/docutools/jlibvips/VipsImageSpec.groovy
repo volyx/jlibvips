@@ -64,7 +64,6 @@ class VipsImageSpec extends Specification {
                 .container(container)
                 .tileSize(tileSize)
                 .strip()
-                .inMemory()
                 .save()
         then: "generates an image pyramid on the file system"
         Files.exists outDir.resolve("0/0/0.jpg")
@@ -74,6 +73,27 @@ class VipsImageSpec extends Specification {
         where:
         resource      | layout                 | background         | angle         | container                    | tileSize
         "500x500.jpg" | DeepZoomLayouts.Google | [0.0f, 0.0f, 0.0f] | VipsAngle.D90 | DeepZoomContainer.FileSystem | 256
+    }
+
+    def "thumbnail creation"() {
+        given: "a VipsImage"
+        def file = copyResourceToFS(resource)
+        def image = VipsImage.fromFile(file)
+        when: "calling .thumbnail()"
+        def thumbnail = image.thumbnail(thumbnailWidth)
+                .autoRotate()
+                .size(VipsSize.Nearest)
+                .crop(VipsInteresting.Attention)
+                .linear()
+                .create()
+        then: "the resulting image is resized to the specifications"
+        thumbnail.width == thumbnailWidth
+        thumbnail.height == thumbnailHeight
+        cleanup:
+        Files.deleteIfExists file
+        where:
+        resource      | thumbnailWidth | thumbnailHeight
+        "500x500.jpg" | 100            | 100
     }
 
 }

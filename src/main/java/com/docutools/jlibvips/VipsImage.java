@@ -26,7 +26,7 @@ public class VipsImage {
 
     private final Pointer ptr;
 
-    private VipsImage(final Pointer ptr) {
+    VipsImage(final Pointer ptr) {
         this.ptr = ptr;
     }
 
@@ -36,6 +36,10 @@ public class VipsImage {
 
     public DeepZoomOperation deepZoom(Path outDir) {
         return new DeepZoomOperation(this, outDir);
+    }
+
+    public ThumbnailOperation thumbnail(int width) {
+        return new ThumbnailOperation(this, width);
     }
 
     public int getWidth() {
