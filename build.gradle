@@ -2,6 +2,8 @@ plugins {
     id 'java'
     id 'java-library'
     id 'groovy'
+    id 'maven-publish'
+    id 'signing'
     id "net.java.openjdk.shinyafox.jshell.gradle.plugin" version "1.0.4"
 }
 
@@ -34,7 +36,53 @@ jar {
     }
 }
 
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier = 'javadoc'
+}
+
 javadoc {
     exclude 'com/docutools/jlibvips/jna/**'
     exclude 'com/docutools/jlibvips/util/**'
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            def releasesRepoUrl = "https://gitlab.com/api/v4/projects/${System.getenv("CI_PROJECT_ID")}/packages/maven"
+            def snapshotsRepoUrl = "https://gitlab.com/api/v4/projects/${System.getenv("CI_PROJECT_ID")}/packages/maven"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+            credentials(HttpHeaderCredentialls) {
+                name = "Job-Token"
+                value = System.getenv("CI_JOB_TOKEN")
+            }
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'jlibvips'
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            pom {
+                name = 'jlibvips'
+                description = 'A Java API for libvips: http://libvips.github.io/libvips/'
+                url = 'http://libvips.github.io/libvips/'
+
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
 }

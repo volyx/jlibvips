@@ -1,0 +1,6 @@
+deploy:
+  image: openjdk:11
+  script:
+  - './gradlew publish'
+  only:
+  - master
