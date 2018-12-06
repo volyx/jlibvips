@@ -96,4 +96,24 @@ class VipsImageSpec extends Specification {
         "500x500.jpg" | 100            | 100
     }
 
+    def ".jpg to .webp conversion"() {
+        given: "a JPEG image"
+        def file = copyResourceToFS(resource)
+        def image = VipsImage.fromFile(file)
+        when: "calling .webp()"
+        def webpFile = image.webp()
+            .quality(100)
+            .lossless()
+            .smartSubsample()
+            .alphaQuality(100)
+            .strip()
+            .save()
+        then: "the image is stored as WEBP to a temporary file location"
+        Files.exists webpFile
+        cleanup:
+        Files.deleteIfExists file
+        Files.deleteIfExists webpFile
+        where:
+        resource << ["500x500.jpg"]
+    }
 }

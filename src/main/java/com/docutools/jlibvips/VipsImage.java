@@ -42,6 +42,10 @@ public class VipsImage {
         return new ThumbnailOperation(this, width);
     }
 
+    public WebpSaveOperation webp() {
+        return new WebpSaveOperation(this);
+    }
+
     public int getWidth() {
         return VipsBindings.INSTANCE.vips_image_get_width(ptr);
     }
