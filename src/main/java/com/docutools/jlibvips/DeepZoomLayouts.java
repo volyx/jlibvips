@@ -9,6 +9,9 @@ package com.docutools.jlibvips;
 public enum DeepZoomLayouts {
     DeepZoom,
     Zoomify,
+    /**
+     * In Google layout mode, edge tiles are expanded to tile_size by tile_size pixels.
+     */
     Google,
     Last
 }

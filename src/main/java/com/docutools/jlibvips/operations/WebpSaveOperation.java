@@ -1,11 +1,23 @@
-package com.docutools.jlibvips;
+package com.docutools.jlibvips.operations;
+
+import com.docutools.jlibvips.jna.VipsBindings;
+import com.docutools.jlibvips.VipsImage;
+import com.docutools.jlibvips.exceptions.WebpConversionException;
+import com.docutools.jlibvips.util.Varargs;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static com.docutools.jlibvips.VipsUtils.booleanToInteger;
+import static com.docutools.jlibvips.util.VipsUtils.booleanToInteger;
 
+/**
+ * Write an image to a file in WebP format.
+ *
+ * @author amp
+ * @see <a href="https://en.wikipedia.org/wiki/WebP">WebP</a>
+ * @see <a href="http://libvips.github.io/libvips/API/current/VipsForeignSave.html#vips-webpsave">vips_webpsave()</a>
+ */
 public class WebpSaveOperation {
 
     private final VipsImage image;
@@ -16,7 +28,7 @@ public class WebpSaveOperation {
     private Integer alphaQuality;
     private Boolean strip;
 
-    WebpSaveOperation(VipsImage image) {
+    public WebpSaveOperation(VipsImage image) {
         this.image = image;
     }
 
@@ -31,31 +43,58 @@ public class WebpSaveOperation {
                         .add("strip", booleanToInteger(strip))
                         .toArray());
         if(ret != 0) {
-            throw new VipsException("vips_webpsave", ret);
+            throw new WebpConversionException(ret);
         }
         return path;
     }
 
+    /**
+     * Set the output quality factor.
+     *
+     * @param q 0-100
+     * @return this
+     */
     public WebpSaveOperation quality(int q) {
         this.quality = q;
         return this;
     }
 
+    /**
+     * Set the output alpha quality in lossless mode.
+     *
+     * @param q 0-100
+     * @return this
+     */
     public WebpSaveOperation alphaQuality(int q) {
         this.alphaQuality = q;
         return this;
     }
 
+    /**
+     * Enables lossless compression.
+     *
+     * @return this
+     */
     public WebpSaveOperation lossless() {
         this.lossless = true;
         return this;
     }
 
+    /**
+     * Enables high quality chroma subsampling.
+     *
+     * @return this
+     */
     public WebpSaveOperation smartSubsample() {
         this.smartSubsample = true;
         return this;
     }
 
+    /**
+     * Remove all metadata from the image.
+     *
+     * @return this
+     */
     public WebpSaveOperation strip() {
         this.strip = true;
         return this;

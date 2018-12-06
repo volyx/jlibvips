@@ -29,8 +29,8 @@ class VipsImageSpec extends Specification {
         when: "loading it as a vips image"
         def image = VipsImage.fromPdf(pdfFile)
         then: "the height should not exceed the limits imposed by libpoppler (32767)" // TODO documentation link here
-        image.width <= VipsImage.POPPLER_LIMIT
-        image.height <= VipsImage.POPPLER_LIMIT
+        image.width <= VipsImage.POPPLER_CAIRO_LIMIT
+        image.height <= VipsImage.POPPLER_CAIRO_LIMIT
         cleanup:
         Files.deleteIfExists(pdfFile)
         where:
@@ -63,7 +63,9 @@ class VipsImageSpec extends Specification {
                 .rotate(angle)
                 .container(container)
                 .tileSize(tileSize)
+                .centre()
                 .strip()
+                .suffix(".jpg[Q=85]")
                 .save()
         then: "generates an image pyramid on the file system"
         Files.exists outDir.resolve("0/0/0.jpg")

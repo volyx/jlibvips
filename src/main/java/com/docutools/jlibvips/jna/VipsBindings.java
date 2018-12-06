@@ -1,4 +1,4 @@
-package com.docutools.jlibvips;
+package com.docutools.jlibvips.jna;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;

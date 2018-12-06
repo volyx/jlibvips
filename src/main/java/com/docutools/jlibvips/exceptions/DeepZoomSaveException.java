@@ -1,4 +1,4 @@
-package com.docutools.jlibvips;
+package com.docutools.jlibvips.exceptions;
 
 public class DeepZoomSaveException extends VipsException {
     public DeepZoomSaveException(int returnValue) {

@@ -1,4 +1,4 @@
-package com.docutools.jlibvips;
+package com.docutools.jlibvips.exceptions;
 
 public class VipsException extends RuntimeException {
 

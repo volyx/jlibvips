@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'java-library'
     id 'groovy'
     id "net.java.openjdk.shinyafox.jshell.gradle.plugin" version "1.0.4"
 }
@@ -10,13 +11,30 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.11
 targetCompatibility = 1.11
 
+compileTestGroovy {
+    sourceCompatibility = 1.10
+    targetCompatibility = 1.10
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
     implementation group: 'net.java.dev.jna', name: 'jna', version: '5.1.0'
+    implementation 'org.codehaus.groovy:groovy:2.5.4'
 
-    testCompile 'org.codehaus.groovy:groovy:2.5.4'
     testCompile 'org.spockframework:spock-core:1.2-groovy-2.5'
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                    'Implementation-Version': project.version)
+    }
+}
+
+javadoc {
+    exclude 'com/docutools/jlibvips/jna/**'
+    exclude 'com/docutools/jlibvips/util/**'
 }
