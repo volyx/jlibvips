@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '4.0.3'
     id 'groovy'
     id 'maven-publish'
     id "net.java.openjdk.shinyafox.jshell.gradle.plugin" version "1.0.4"
@@ -32,6 +33,9 @@ jar {
     manifest {
         attributes('Implementation-Title': project.name,
                     'Implementation-Version': project.version)
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
