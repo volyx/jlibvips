@@ -9,6 +9,7 @@ import com.docutools.jlibvips.util.Varargs;
 import com.sun.jna.Pointer;
 
 import static com.docutools.jlibvips.util.VipsUtils.booleanToInteger;
+import static com.docutools.jlibvips.util.VipsUtils.toOrdinal;
 
 /**
  * Make a thumbnail from a file. Shrinking is done in three stages: using any shrink-on-load features available in the
@@ -44,8 +45,8 @@ public class ThumbnailOperation {
         var pointers = new Pointer[1];
         int ret = VipsBindings.INSTANCE.vips_thumbnail_image(image.getPtr(), pointers, width,
                 new Varargs().add("auto_rotate", booleanToInteger(autoRotate))
-                        .add("size", size.ordinal())
-                        .add("crop", crop.ordinal())
+                        .add("size", toOrdinal(size))
+                        .add("crop", toOrdinal(crop))
                         .add("linear", booleanToInteger(linear))
                         .toArray());
         if(ret != 0) {

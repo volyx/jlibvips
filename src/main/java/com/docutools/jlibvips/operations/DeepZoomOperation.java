@@ -12,7 +12,7 @@ import com.sun.jna.Pointer;
 import java.nio.file.Path;
 import java.util.List;
 
-import static com.docutools.jlibvips.util.VipsUtils.booleanToInteger;
+import static com.docutools.jlibvips.util.VipsUtils.*;
 
 /**
  * Saves an image as a set of tiles at various resolutions. By default {@link DeepZoomOperation} uses the
@@ -46,10 +46,10 @@ public class DeepZoomOperation {
         int ret = VipsBindings.INSTANCE.vips_dzsave(image.getPtr(), outDir.toString(),
                 new Varargs()
                         .add("basename", baseName)
-                        .add("layout", layout.ordinal())
+                        .add("layout", toOrdinal(layout))
                         .add("background", background)
-                        .add("angle", rotate.ordinal())
-                        .add("container", container.ordinal())
+                        .add("angle", toOrdinal(rotate))
+                        .add("container", toOrdinal(container))
                         .add("tile_size", tileSize)
                         .add("centre", booleanToInteger(centre))
                         .add("strip", booleanToInteger(strip))
