@@ -6,7 +6,7 @@ import java.nio.file.Path
 class TestUtils {
 
     static Path copyResourceToFS(String resourceName) {
-        def tempFile = Files.createTempFile("jlibvips", resourceName.replaceFirst(~/\.[^\.]+$/, ''))
+        def tempFile = Files.createTempFile("jlibvips", "." + resourceName.replaceFirst(~/\.[^\.]+$/, ''))
         tempFile.toFile().withDataOutputStream { DataOutputStream os ->
             TestUtils.class.getResource("/$resourceName").withInputStream { is ->
                 os << is
