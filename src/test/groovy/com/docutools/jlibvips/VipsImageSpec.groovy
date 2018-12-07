@@ -28,7 +28,7 @@ class VipsImageSpec extends Specification {
         def pdfFile = copyResourceToFS(pdfResource)
         when: "loading it as a vips image"
         def image = VipsImage.fromPdf(pdfFile)
-        then: "the height should not exceed the limits imposed by libpoppler (32767)" // TODO documentation link here
+        then: "the height should not exceed the limits imposed by libpoppler (32767)"
         image.width <= VipsImage.POPPLER_CAIRO_LIMIT
         image.height <= VipsImage.POPPLER_CAIRO_LIMIT
         cleanup:
@@ -96,6 +96,29 @@ class VipsImageSpec extends Specification {
         where:
         resource      | thumbnailWidth | thumbnailHeight
         "500x500.jpg" | 100            | 100
+    }
+
+    def "to .jpg conversion"() {
+        given: "a image"
+        def file = copyResourceToFS(resource)
+        def image = VipsImage.fromFile(file)
+        when: "calling .jpeg()"
+        def jpegFile = image.jpeg()
+            .strip()
+            .interlalce()
+            .noSubsample()
+            .optimizeCoding()
+            .overshootDeringing()
+            .quality(100)
+            .trellisQuant()
+            .save()
+        then: "the resulting image is stored as JPEG to a temporary file location"
+        Files.exists jpegFile
+        cleanup:
+        Files.deleteIfExists file
+        Files.deleteIfExists jpegFile
+        where:
+        resource << ["900x700.png"]
     }
 
     def ".jpg to .webp conversion"() {

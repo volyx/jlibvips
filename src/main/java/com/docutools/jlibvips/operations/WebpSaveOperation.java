@@ -18,7 +18,7 @@ import static com.docutools.jlibvips.util.VipsUtils.booleanToInteger;
  * @see <a href="https://en.wikipedia.org/wiki/WebP">WebP</a>
  * @see <a href="http://libvips.github.io/libvips/API/current/VipsForeignSave.html#vips-webpsave">vips_webpsave()</a>
  */
-public class WebpSaveOperation {
+public class WebpSaveOperation implements SaveOperation {
 
     private final VipsImage image;
 
@@ -32,6 +32,7 @@ public class WebpSaveOperation {
         this.image = image;
     }
 
+    @Override
     public Path save() throws IOException {
         var path = Files.createTempFile("jlibvips", "webp");
         int ret = VipsBindings.INSTANCE.vips_webpsave(image.getPtr(), path.toString(),

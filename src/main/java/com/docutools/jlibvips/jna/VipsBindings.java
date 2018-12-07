@@ -23,5 +23,6 @@ public interface VipsBindings extends Library {
 
     Pointer vips_array_double_new(double[] array, int n);
 
+    int vips_jpegsave(Pointer in, String filename, Object...args);
     int vips_webpsave(Pointer in, String filename, Object...args);
 }

@@ -3,6 +3,7 @@ package com.docutools.jlibvips;
 import com.docutools.jlibvips.exceptions.CouldNotLoadPdfVipsException;
 import com.docutools.jlibvips.jna.VipsBindings;
 import com.docutools.jlibvips.operations.DeepZoomOperation;
+import com.docutools.jlibvips.operations.JpegSaveOperation;
 import com.docutools.jlibvips.operations.ThumbnailOperation;
 import com.docutools.jlibvips.operations.WebpSaveOperation;
 import com.sun.jna.Pointer;
@@ -138,6 +139,21 @@ public class VipsImage {
      */
     public WebpSaveOperation webp() {
         return new WebpSaveOperation(this);
+    }
+
+    /**
+     * Write an image to a file in JPEG format.
+     *
+     * <code>
+     *     java.nio.Path path = image.jpeg().quality(100).save();
+     * </code>
+     *
+     * <a href="http://libvips.github.io/libvips/API/current/VipsForeignSave.html#vips-jpegsave>vips_jpegsave()</a>
+     *
+     * @return the {@link JpegSaveOperation}
+     */
+    public JpegSaveOperation jpeg() {
+        return new JpegSaveOperation(this);
     }
 
     /**
