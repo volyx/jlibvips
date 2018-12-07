@@ -38,16 +38,17 @@ public class VipsImage {
      * Loads a PDF document's page as {@link VipsImage} in the greatest possible resolution.
      *
      * @param p {@link Path} to the PDF document.
+     * @param page page number (starting at 0)
      * @return the PDF page as {@link VipsImage}.
      */
-    public static VipsImage fromPdf(Path p) {
+    public static VipsImage fromPdf(Path p, int page) {
         // Due to excessive testing we set 6 to be the maximum scale parameter and decrease by 0.1 until we reach a
         // scale working with the limit.
         var scale = 6.0f;
         VipsImage image;
         do {
             Pointer[] ptr = new Pointer[1];
-            var ret = VipsBindings.INSTANCE.vips_pdfload(p.toString(), ptr, "scale", scale, null);
+            var ret = VipsBindings.INSTANCE.vips_pdfload(p.toString(), ptr, "scale", scale, "page", page, null);
             if(ret != 0) {
                 throw new CouldNotLoadPdfVipsException(ret);
             }
@@ -55,6 +56,16 @@ public class VipsImage {
             scale -= 0.1f;
         } while(image.getWidth() > POPPLER_CAIRO_LIMIT || image.getHeight() > POPPLER_CAIRO_LIMIT);
         return image;
+    }
+
+    /**
+     * Loads a PDF document's page as {@link VipsImage} in the greatest possible resolution.
+     *
+     * @param p {@link Path} to the PDF document.
+     * @return the PDF page as {@link VipsImage}.
+     */
+    public static VipsImage fromPdf(Path p) {
+        return fromPdf(p, 1);
     }
 
     /**

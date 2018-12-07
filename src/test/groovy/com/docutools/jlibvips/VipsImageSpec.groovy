@@ -27,14 +27,16 @@ class VipsImageSpec extends Specification {
         given: "a large vectorised PDF"
         def pdfFile = copyResourceToFS(pdfResource)
         when: "loading it as a vips image"
-        def image = VipsImage.fromPdf(pdfFile)
+        def image = VipsImage.fromPdf(pdfFile, pageNumber)
         then: "the height should not exceed the limits imposed by libpoppler (32767)"
         image.width <= VipsImage.POPPLER_CAIRO_LIMIT
         image.height <= VipsImage.POPPLER_CAIRO_LIMIT
         cleanup:
         Files.deleteIfExists(pdfFile)
         where:
-        pdfResource << ["1.pdf"]
+        pdfResource | pageNumber
+        "1.pdf"     | 0
+        "2page.pdf" | 1
     }
 
     def "get bands of image"() {
@@ -104,14 +106,14 @@ class VipsImageSpec extends Specification {
         def image = VipsImage.fromFile(file)
         when: "calling .jpeg()"
         def jpegFile = image.jpeg()
-            .strip()
-            .interlalce()
-            .noSubsample()
-            .optimizeCoding()
-            .overshootDeringing()
-            .quality(100)
-            .trellisQuant()
-            .save()
+                .strip()
+                .interlalce()
+                .noSubsample()
+                .optimizeCoding()
+                .overshootDeringing()
+                .quality(100)
+                .trellisQuant()
+                .save()
         then: "the resulting image is stored as JPEG to a temporary file location"
         Files.exists jpegFile
         cleanup:
@@ -127,12 +129,12 @@ class VipsImageSpec extends Specification {
         def image = VipsImage.fromFile(file)
         when: "calling .webp()"
         def webpFile = image.webp()
-            .quality(100)
-            .lossless()
-            .smartSubsample()
-            .alphaQuality(100)
-            .strip()
-            .save()
+                .quality(100)
+                .lossless()
+                .smartSubsample()
+                .alphaQuality(100)
+                .strip()
+                .save()
         then: "the image is stored as WEBP to a temporary file location"
         Files.exists webpFile
         cleanup:
