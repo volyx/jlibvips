@@ -6,6 +6,15 @@ import java.util.stream.Stream;
 
 public class Varargs {
 
+    /**
+     * Returns an empty varags list as Object array.
+     *
+     * @return Object array
+     */
+    public static Object[] empty() {
+        return new Varargs().toArray();
+    }
+
     private final Map<String, Object> arguments;
 
     public Varargs() {

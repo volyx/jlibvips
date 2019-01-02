@@ -2,10 +2,7 @@ package org.jlibvips;
 
 import org.jlibvips.exceptions.CouldNotLoadPdfVipsException;
 import org.jlibvips.jna.VipsBindings;
-import org.jlibvips.operations.DeepZoomOperation;
-import org.jlibvips.operations.JpegSaveOperation;
-import org.jlibvips.operations.ThumbnailOperation;
-import org.jlibvips.operations.WebpSaveOperation;
+import org.jlibvips.operations.*;
 import com.sun.jna.Pointer;
 
 import java.nio.file.Path;
@@ -135,6 +132,21 @@ public class VipsImage {
      */
     public ThumbnailOperation thumbnail(int width) {
         return new ThumbnailOperation(this, width);
+    }
+
+    /**
+     * Write an image to a file in Vips Image format.
+     *
+     * <code>
+     *     java.nio.Path = image.v().save();
+     * </code>
+     *
+     * <a href="http://libvips.github.io/libvips/API/current/VipsForeignSave.html#vips-vipssave">vips_vipssave</a>
+     *
+     * @return the {@link VipsSaveOperation}
+     */
+    public VipsSaveOperation v() {
+        return new VipsSaveOperation(this);
     }
 
     /**

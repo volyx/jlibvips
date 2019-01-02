@@ -143,4 +143,20 @@ class VipsImageSpec extends Specification {
         where:
         resource << ["500x500.jpg"]
     }
+
+    def ".jpg to .v conversion"() {
+        given: "a JPEG image"
+        def file = copyResourceToFS(resource)
+        def image = VipsImage.fromFile(file)
+        when: "calling .v()"
+        def vFile = image.v()
+                .save()
+        then: "the image is stored in Vips Image Format to a temporary file location"
+        Files.exists vFile
+        cleanup:
+        Files.deleteIfExists file
+        Files.deleteIfExists vFile
+        where:
+        resource << ["500x500.jpg"]
+    }
 }
