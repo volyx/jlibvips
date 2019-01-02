@@ -8,7 +8,7 @@ plugins {
 }
 
 group 'org.jlibvips'
-version '1.1M-SNAPSHOT'
+version '1.0'
 
 sourceCompatibility = 1.11
 targetCompatibility = 1.11
