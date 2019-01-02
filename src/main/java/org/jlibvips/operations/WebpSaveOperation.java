@@ -1,15 +1,14 @@
-package com.docutools.jlibvips.operations;
+package org.jlibvips.operations;
 
-import com.docutools.jlibvips.jna.VipsBindings;
-import com.docutools.jlibvips.VipsImage;
-import com.docutools.jlibvips.exceptions.WebpConversionException;
-import com.docutools.jlibvips.util.Varargs;
+import org.jlibvips.jna.VipsBindings;
+import org.jlibvips.VipsImage;
+import org.jlibvips.exceptions.WebpConversionException;
+import org.jlibvips.util.Varargs;
+import org.jlibvips.util.VipsUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-import static com.docutools.jlibvips.util.VipsUtils.booleanToInteger;
 
 /**
  * Write an image to a file in WebP format.
@@ -38,10 +37,10 @@ public class WebpSaveOperation implements SaveOperation {
         int ret = VipsBindings.INSTANCE.vips_webpsave(image.getPtr(), path.toString(),
                 new Varargs()
                         .add("Q", quality)
-                        .add("lossless", booleanToInteger(lossless))
-                        .add("smart_subsample", booleanToInteger(smartSubsample))
+                        .add("lossless", VipsUtils.booleanToInteger(lossless))
+                        .add("smart_subsample", VipsUtils.booleanToInteger(smartSubsample))
                         .add("alpha_q", alphaQuality)
-                        .add("strip", booleanToInteger(strip))
+                        .add("strip", VipsUtils.booleanToInteger(strip))
                         .toArray());
         if(ret != 0) {
             throw new WebpConversionException(ret);

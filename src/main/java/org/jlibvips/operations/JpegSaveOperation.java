@@ -1,16 +1,14 @@
-package com.docutools.jlibvips.operations;
+package org.jlibvips.operations;
 
-import com.docutools.jlibvips.VipsImage;
-import com.docutools.jlibvips.exceptions.VipsException;
-import com.docutools.jlibvips.jna.VipsBindings;
-import com.docutools.jlibvips.util.Varargs;
-import com.docutools.jlibvips.util.VipsUtils;
+import org.jlibvips.VipsImage;
+import org.jlibvips.exceptions.VipsException;
+import org.jlibvips.jna.VipsBindings;
+import org.jlibvips.util.Varargs;
+import org.jlibvips.util.VipsUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-import static com.docutools.jlibvips.util.VipsUtils.booleanToInteger;
 
 public class JpegSaveOperation implements SaveOperation {
 
@@ -34,12 +32,12 @@ public class JpegSaveOperation implements SaveOperation {
         Path path = Files.createTempFile("jlibvips", ".jpg");
         int ret = VipsBindings.INSTANCE.vips_jpegsave(image.getPtr(), path.toString(),
                 new Varargs().add("Q", quality)
-                        .add("optimize_coding", booleanToInteger(optimizeCoding))
-                        .add("interlace", booleanToInteger(interlace))
-                        .add("strip", booleanToInteger(strip))
-                        .add("no_subsample", booleanToInteger(noSubsample))
-                        .add("trellis_quant", booleanToInteger(trellisQuant))
-                        .add("overshoot_deringing", booleanToInteger(overshootDeringing))
+                        .add("optimize_coding", VipsUtils.booleanToInteger(optimizeCoding))
+                        .add("interlace", VipsUtils.booleanToInteger(interlace))
+                        .add("strip", VipsUtils.booleanToInteger(strip))
+                        .add("no_subsample", VipsUtils.booleanToInteger(noSubsample))
+                        .add("trellis_quant", VipsUtils.booleanToInteger(trellisQuant))
+                        .add("overshoot_deringing", VipsUtils.booleanToInteger(overshootDeringing))
                         .add("optimize_scans", optimizeScans).toArray());
         if(ret != 0) {
             throw new VipsException("vips_jpegsave", ret);

@@ -1,10 +1,10 @@
-package com.docutools.jlibvips
+package org.jlibvips
 
 import spock.lang.Specification
 
 import java.nio.file.Files
 
-import static com.docutools.jlibvips.TestUtils.*
+import static TestUtils.*
 
 class VipsImageSpec extends Specification {
 
@@ -50,7 +50,7 @@ class VipsImageSpec extends Specification {
         Files.deleteIfExists(file)
         where:
         resource      | bands
-        "500x500.jpg" | 3
+        "500x500.jpg" | 1
     }
 
     def "creating image pyramids"() {

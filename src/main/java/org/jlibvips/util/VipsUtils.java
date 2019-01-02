@@ -1,4 +1,4 @@
-package com.docutools.jlibvips.util;
+package org.jlibvips.util;
 
 public class VipsUtils {
 

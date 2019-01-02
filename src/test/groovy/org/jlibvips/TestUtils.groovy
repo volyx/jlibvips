@@ -1,4 +1,4 @@
-package com.docutools.jlibvips
+package org.jlibvips
 
 import java.nio.file.Files
 import java.nio.file.Path

@@ -1,18 +1,18 @@
-package com.docutools.jlibvips.operations;
+package org.jlibvips.operations;
 
-import com.docutools.jlibvips.DeepZoomContainer;
-import com.docutools.jlibvips.DeepZoomLayouts;
-import com.docutools.jlibvips.VipsAngle;
-import com.docutools.jlibvips.VipsImage;
-import com.docutools.jlibvips.exceptions.DeepZoomSaveException;
-import com.docutools.jlibvips.jna.VipsBindings;
-import com.docutools.jlibvips.util.Varargs;
+import org.jlibvips.DeepZoomContainer;
+import org.jlibvips.DeepZoomLayouts;
+import org.jlibvips.VipsAngle;
+import org.jlibvips.VipsImage;
+import org.jlibvips.exceptions.DeepZoomSaveException;
+import org.jlibvips.jna.VipsBindings;
+import org.jlibvips.util.Varargs;
 import com.sun.jna.Pointer;
 
 import java.nio.file.Path;
 import java.util.List;
 
-import static com.docutools.jlibvips.util.VipsUtils.*;
+import static org.jlibvips.util.VipsUtils.*;
 
 /**
  * Saves an image as a set of tiles at various resolutions. By default {@link DeepZoomOperation} uses the

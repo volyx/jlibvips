@@ -1,11 +1,11 @@
-package com.docutools.jlibvips;
+package org.jlibvips;
 
-import com.docutools.jlibvips.exceptions.CouldNotLoadPdfVipsException;
-import com.docutools.jlibvips.jna.VipsBindings;
-import com.docutools.jlibvips.operations.DeepZoomOperation;
-import com.docutools.jlibvips.operations.JpegSaveOperation;
-import com.docutools.jlibvips.operations.ThumbnailOperation;
-import com.docutools.jlibvips.operations.WebpSaveOperation;
+import org.jlibvips.exceptions.CouldNotLoadPdfVipsException;
+import org.jlibvips.jna.VipsBindings;
+import org.jlibvips.operations.DeepZoomOperation;
+import org.jlibvips.operations.JpegSaveOperation;
+import org.jlibvips.operations.ThumbnailOperation;
+import org.jlibvips.operations.WebpSaveOperation;
 import com.sun.jna.Pointer;
 
 import java.nio.file.Path;

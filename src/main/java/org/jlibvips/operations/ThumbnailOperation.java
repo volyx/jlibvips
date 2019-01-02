@@ -1,15 +1,15 @@
-package com.docutools.jlibvips.operations;
+package org.jlibvips.operations;
 
-import com.docutools.jlibvips.VipsImage;
-import com.docutools.jlibvips.VipsInteresting;
-import com.docutools.jlibvips.VipsSize;
-import com.docutools.jlibvips.exceptions.FailedOnThumbnailException;
-import com.docutools.jlibvips.jna.VipsBindings;
-import com.docutools.jlibvips.util.Varargs;
+import org.jlibvips.VipsImage;
+import org.jlibvips.VipsInteresting;
+import org.jlibvips.VipsSize;
+import org.jlibvips.exceptions.FailedOnThumbnailException;
+import org.jlibvips.jna.VipsBindings;
+import org.jlibvips.util.Varargs;
 import com.sun.jna.Pointer;
 
-import static com.docutools.jlibvips.util.VipsUtils.booleanToInteger;
-import static com.docutools.jlibvips.util.VipsUtils.toOrdinal;
+import static org.jlibvips.util.VipsUtils.booleanToInteger;
+import static org.jlibvips.util.VipsUtils.toOrdinal;
 
 /**
  * Make a thumbnail from a file. Shrinking is done in three stages: using any shrink-on-load features available in the

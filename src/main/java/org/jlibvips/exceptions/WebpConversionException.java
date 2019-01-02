@@ -1,4 +1,4 @@
-package com.docutools.jlibvips.exceptions;
+package org.jlibvips.exceptions;
 
 public class WebpConversionException extends VipsException {
 

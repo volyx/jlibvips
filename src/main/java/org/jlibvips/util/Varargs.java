@@ -1,4 +1,4 @@
-package com.docutools.jlibvips.util;
+package org.jlibvips.util;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.docutools.jlibvips;
+package org.jlibvips;
 
 /**
  * Java representation of the <code>VipsForeignDzLayout</code> enum from libvips.

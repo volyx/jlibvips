@@ -1,19 +1,20 @@
-package com.docutools.jlibvips.operations;
+package org.jlibvips.operations;
 
-import com.docutools.jlibvips.exceptions.VipsException;
+import org.jlibvips.exceptions.VipsException;
+import org.jlibvips.VipsImage;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
 /**
- * A libvips operation that persists a {@link com.docutools.jlibvips.VipsImage} to the file system.
+ * A libvips operation that persists a {@link VipsImage} to the file system.
  *
  * @author amp
  */
 public interface SaveOperation {
 
     /**
-     * Saves the {@link com.docutools.jlibvips.VipsImage} to a temporary file and returns the
+     * Saves the {@link VipsImage} to a temporary file and returns the
      * {@link Path} to it.
      *
      * @return {@link Path}
