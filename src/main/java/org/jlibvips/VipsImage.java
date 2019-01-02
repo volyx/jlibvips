@@ -171,7 +171,7 @@ public class VipsImage {
      *     java.nio.Path path = image.jpeg().quality(100).save();
      * </code>
      *
-     * <a href="http://libvips.github.io/libvips/API/current/VipsForeignSave.html#vips-jpegsave>vips_jpegsave()</a>
+     * <a href="http://libvips.github.io/libvips/API/current/VipsForeignSave.html#vips-jpegsave">vips_jpegsave()</a>
      *
      * @return the {@link JpegSaveOperation}
      */
