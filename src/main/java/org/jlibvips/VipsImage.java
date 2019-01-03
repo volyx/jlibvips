@@ -208,4 +208,16 @@ public class VipsImage {
     public int getBands() {
         return VipsBindings.INSTANCE.vips_image_get_bands(ptr);
     }
+
+    /**
+     * Insert sub into main at position.
+     *
+     * <a href="https://jcupitt.github.io/libvips/API/current/libvips-conversion.html#vips-insert">https://jcupitt.github.io/libvips/API/current/libvips-conversion.html#vips-insert</a>
+     *
+     * @param sub small image
+     * @return the {@link VipsInsertOperation}
+     */
+    public VipsInsertOperation insert(VipsImage sub) {
+        return new VipsInsertOperation(this, sub);
+    }
 }

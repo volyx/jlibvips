@@ -26,4 +26,6 @@ public interface VipsBindings extends Library {
     int vips_vipssave(Pointer in, String filename, Object...args);
     int vips_jpegsave(Pointer in, String filename, Object...args);
     int vips_webpsave(Pointer in, String filename, Object...args);
+
+    int vips_insert(Pointer main, Pointer sub, Pointer[] out, int x, int y, Object...args);
 }
