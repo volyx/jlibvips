@@ -221,6 +221,10 @@ public class VipsImage {
         return new VipsInsertOperation(this, sub);
     }
 
+    public VipsJoinOperation join(VipsImage other) {
+        return new VipsJoinOperation(this, other);
+    }
+
     /**
      * Paint pixels within left , top , width , height in image with ink . If fill is zero, just paint a 1-pixel-wide
      * outline.
