@@ -28,4 +28,7 @@ public interface VipsBindings extends Library {
     int vips_webpsave(Pointer in, String filename, Object...args);
 
     int vips_insert(Pointer main, Pointer sub, Pointer[] out, int x, int y, Object...args);
+
+    int vips_draw_rect1(Pointer image, double ink, int left, int top, int width, int height, Object...args);
+    int vips_draw_rect(Pointer image, Pointer ink, int n, int left, int top, int width, int height, Object...args);
 }

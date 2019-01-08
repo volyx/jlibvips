@@ -1,5 +1,8 @@
 package org.jlibvips.util;
 
+import com.sun.jna.Pointer;
+import org.jlibvips.jna.VipsBindings;
+
 public class VipsUtils {
 
     public static Integer booleanToInteger(Boolean b) {
@@ -10,4 +13,7 @@ public class VipsUtils {
         return v != null? v.ordinal() : null;
     }
 
+    public static Pointer toPointer(double[] array) {
+        return VipsBindings.INSTANCE.vips_array_double_new(array, array.length);
+    }
 }
