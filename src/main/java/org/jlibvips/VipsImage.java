@@ -220,4 +220,16 @@ public class VipsImage {
     public VipsInsertOperation insert(VipsImage sub) {
         return new VipsInsertOperation(this, sub);
     }
+
+    /**
+     * Paint pixels within left , top , width , height in image with ink . If fill is zero, just paint a 1-pixel-wide
+     * outline.
+     *
+     * <a href="https://jcupitt.github.io/libvips/API/current/libvips-draw.html#vips-draw-rect">vips_draw_rect()</a>
+     *
+     * @return the {@link DrawRectOperation}
+     */
+    public DrawRectOperation rect() {
+        return new DrawRectOperation(this);
+    }
 }
