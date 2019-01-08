@@ -19,6 +19,12 @@ class TestUtils {
         return Files.createTempDirectory("jlibvips")
     }
 
+    static Path copyStringToFS(String val, String extension) {
+        def tempFile = Files.createTempFile "jlivips", ".$extension"
+        Files.writeString tempFile, val
+        return tempFile
+    }
+
     private TestUtils() {
     }
 
