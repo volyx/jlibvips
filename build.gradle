@@ -1,14 +1,14 @@
 plugins {
     id 'java'
     id 'java-library'
+    id 'signing'
     id 'com.github.johnrengelman.shadow' version '4.0.3'
     id 'groovy'
-    id 'maven-publish'
     id "net.java.openjdk.shinyafox.jshell.gradle.plugin" version "1.0.4"
 }
 
 group 'org.jlibvips'
-version '1.0'
+version '1.0-RC1'
 
 sourceCompatibility = 1.11
 targetCompatibility = 1.11
@@ -56,4 +56,15 @@ javadoc {
 
 wrapper {
     gradleVersion = '5.0'
+}
+
+signing {
+    useGpgCmd()
+    sign jar
+    sign javadocJar
+    sign sourcesJar
+}
+
+task buildReleaseJars() {
+    dependsOn(signJar, signJavadocJar, signSourcesJar)
 }
