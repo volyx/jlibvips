@@ -1,5 +1,7 @@
 # jlibvips
 
+[![Release](https://jitpack.io/v/codecitizen/jlibvips.svg)](https://jitpack.io/#codecitizen/jlibvips)
+
 A Java interface to [llibvips](http://libvips.github.io/libvips/), the fast image processing library with low memory needs.
 
 **Example: Generate a Thumbnail for a PDF.**
