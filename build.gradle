@@ -8,8 +8,8 @@ plugins {
     id "net.java.openjdk.shinyafox.jshell.gradle.plugin" version "1.0.4"
 }
 
-group 'org.jlibvips'
-archivesBaseName = 'jlibvips-core'
+group 'io.github.codecitizen'
+archivesBaseName = 'jlibvips'
 version '1.0'
 
 sourceCompatibility = 1.11
