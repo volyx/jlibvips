@@ -2,6 +2,18 @@
 
 A Java interface to [llibvips](http://libvips.github.io/libvips/), the fast image processing library with low memory needs.
 
+```xml
+<dependency>
+  <groupId>io.github.codecitizen</groupId>
+  <artifactId>jlibvips</artifactId>
+  <version>1.0</version>
+</dependency>
+```
+
+```groovy
+implementation 'io.github.codecitizen:jlibvips:1.0'
+```
+
 **Example: Generate a Thumbnail for a PDF.**
 
 ```java
