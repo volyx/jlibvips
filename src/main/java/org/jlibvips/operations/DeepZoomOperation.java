@@ -34,6 +34,7 @@ public class DeepZoomOperation {
     private DeepZoomContainer container;
     private Integer tileSize;
     private boolean centre;
+    private boolean properties;
     private Boolean strip;
     private String suffix;
 
@@ -54,6 +55,7 @@ public class DeepZoomOperation {
                         .add("centre", booleanToInteger(centre))
                         .add("strip", booleanToInteger(strip))
                         .add("suffix", suffix)
+                        .add("properties", properties)
                         .toArray());
         if(ret != 0) {
             throw new DeepZoomSaveException(ret);
@@ -165,6 +167,11 @@ public class DeepZoomOperation {
      */
     public DeepZoomOperation suffix(String suffix) {
         this.suffix = suffix;
+        return this;
+    }
+
+    public DeepZoomOperation properties() {
+        this.properties = true;
         return this;
     }
 }
