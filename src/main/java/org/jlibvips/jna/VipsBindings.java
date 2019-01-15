@@ -34,4 +34,5 @@ public interface VipsBindings extends Library {
     int vips_draw_rect(Pointer image, Pointer ink, int n, int left, int top, int width, int height, Object...args);
 
     int vips_extract_area(Pointer image, Pointer[] out, int left, int top, int width, int height, Object...args);
+    int vips_resize(Pointer in, Pointer[] out, double scale, Object...args);
 }

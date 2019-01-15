@@ -172,4 +172,21 @@ class VipsImageSpec extends Specification {
         where:
         resource << ["500x500.jpg"]
     }
+
+    def "resize a jpeg to 100x50 pixel"() {
+        given: "a JPEG image"
+        def file = copyResourceToFS(resource)
+        def image = VipsImage.fromFile(file)
+        when: "calling .resize(...)"
+        def resizedImage = image.resize(0.2)
+                .verticalScale(0.1)
+                .kernel(VipsKernel.Nearest)
+                .create()
+        then: "expect a image with size 100x50"
+        resizedImage.width == 100
+        resizedImage.height == 50
+        where:
+        resource << ["500x500.jpg"]
+    }
+
 }
