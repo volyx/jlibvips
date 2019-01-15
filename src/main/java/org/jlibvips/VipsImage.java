@@ -257,4 +257,16 @@ public class VipsImage {
         }
         return new VipsImage(out[0]);
     }
+
+    /**
+     * Resize an image.
+     *
+     * <a href="https://jcupitt.github.io/libvips/API/current/libvips-resample.html#vips-resize">vips_resize</a>
+     *
+     * @param scale scale factor
+     * @return the {@link VipsResizeOperation}
+     */
+    public VipsResizeOperation resize(double scale) {
+        return new VipsResizeOperation(this.ptr, scale);
+    }
 }
