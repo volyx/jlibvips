@@ -1,6 +1,7 @@
 package org.jlibvips;
 
 import org.jlibvips.exceptions.CouldNotLoadPdfVipsException;
+import org.jlibvips.exceptions.VipsException;
 import org.jlibvips.jna.VipsBindings;
 import org.jlibvips.operations.*;
 import com.sun.jna.Pointer;
@@ -235,5 +236,41 @@ public class VipsImage {
      */
     public DrawRectOperation rect() {
         return new DrawRectOperation(this);
+    }
+
+    /**
+     * Extract an area from an image. The area must fit within in.
+     *
+     * <a href="https://jcupitt.github.io/libvips/API/current/libvips-conversion.html#vips-extract-area">vips_extract_area</a>
+     *
+     * @param left left edge of area to extract
+     * @param top top edge of area to extract
+     * @param width width of area to extract
+     * @param height height of area to extract
+     * @return the extracted {@link VipsImage}
+     */
+    public VipsImage extractArea(int left, int top, int width, int height) {
+        var out = new Pointer[1];
+        int ret = VipsBindings.INSTANCE.vips_extract_area(this.ptr, out, left, top, width, height);
+        if(ret != 0) {
+            throw new VipsException("vips_extract_area", ret);
+        }
+        return new VipsImage(out[0]);
+    }
+
+    /**
+     * Resize an image.
+     *
+     * <a href="https://jcupitt.github.io/libvips/API/current/libvips-resample.html#vips-resize">vips_resize</a>
+     *
+     * @param scale scale factor
+     * @return the {@link VipsResizeOperation}
+     */
+    public VipsResizeOperation resize(double scale) {
+        return new VipsResizeOperation(this.ptr, scale);
+    }
+
+    public VipsEmbedOperation embed(int x, int y, int width, int height) {
+        return new VipsEmbedOperation(this.ptr, x, y, width, height);
     }
 }

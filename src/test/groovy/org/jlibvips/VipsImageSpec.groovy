@@ -159,4 +159,50 @@ class VipsImageSpec extends Specification {
         where:
         resource << ["500x500.jpg"]
     }
+
+    def "extract centre square from jpeg"() {
+        given: "a JPEG image"
+        def file = copyResourceToFS(resource)
+        def image = VipsImage.fromFile(file)
+        when: "calling .extractArea(...)"
+        def area = image.extractArea(125, 125, 250, 250)
+        then: "expect a new image with size 250x250"
+        area.width == 250
+        area.height == 250
+        where:
+        resource << ["500x500.jpg"]
+    }
+
+    def "resize a jpeg to 100x50 pixel"() {
+        given: "a JPEG image"
+        def file = copyResourceToFS(resource)
+        def image = VipsImage.fromFile(file)
+        when: "calling .resize(...)"
+        def resizedImage = image.resize(0.2)
+                .verticalScale(0.1)
+                .kernel(VipsKernel.Nearest)
+                .create()
+        then: "expect a image with size 100x50"
+        resizedImage.width == 100
+        resizedImage.height == 50
+        where:
+        resource << ["500x500.jpg"]
+    }
+
+    def "embed a jpeg into a larger image"() {
+        given: "a jpeg image"
+        def file = copyResourceToFS(resource)
+        def image = VipsImage.fromFile(file)
+        when: "calling .embed(...)"
+        def extendedImage = image.embed(0, 0, 1000, 1000)
+                .background([0.0f,0.0f,0.0f])
+                .extend(VipsExtend.Background)
+                .create()
+        then: "expect an image with size 1000x1000"
+        extendedImage.width == 1000
+        extendedImage.height == 1000
+        where:
+        resource << ["500x500.jpg"]
+    }
+
 }
