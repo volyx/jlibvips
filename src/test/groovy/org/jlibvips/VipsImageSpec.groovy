@@ -189,4 +189,20 @@ class VipsImageSpec extends Specification {
         resource << ["500x500.jpg"]
     }
 
+    def "embed a jpeg into a larger image"() {
+        given: "a jpeg image"
+        def file = copyResourceToFS(resource)
+        def image = VipsImage.fromFile(file)
+        when: "calling .embed(...)"
+        def extendedImage = image.embed(0, 0, 1000, 1000)
+                .background([0.0f,0.0f,0.0f])
+                .extend(VipsExtend.Background)
+                .create()
+        then: "expect an image with size 1000x1000"
+        extendedImage.width == 1000
+        extendedImage.height == 1000
+        where:
+        resource << ["500x500.jpg"]
+    }
+
 }
