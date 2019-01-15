@@ -269,4 +269,8 @@ public class VipsImage {
     public VipsResizeOperation resize(double scale) {
         return new VipsResizeOperation(this.ptr, scale);
     }
+
+    public VipsEmbedOperation embed(int x, int y, int width, int height) {
+        return new VipsEmbedOperation(this.ptr, x, y, width, height);
+    }
 }
