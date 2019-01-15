@@ -159,4 +159,17 @@ class VipsImageSpec extends Specification {
         where:
         resource << ["500x500.jpg"]
     }
+
+    def "extract centre square from jpeg"() {
+        given: "a JPEG image"
+        def file = copyResourceToFS(resource)
+        def image = VipsImage.fromFile(file)
+        when: "calling .extractArea(...)"
+        def area = image.extractArea(125, 125, 250, 250)
+        then: "expect a new image with size 250x250"
+        area.width == 250
+        area.height == 250
+        where:
+        resource << ["500x500.jpg"]
+    }
 }
