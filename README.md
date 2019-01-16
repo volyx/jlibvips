@@ -6,7 +6,7 @@ A Java interface to [llibvips](http://libvips.github.io/libvips/), the fast imag
 <dependency>
   <groupId>io.github.codecitizen</groupId>
   <artifactId>jlibvips</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
 </dependency>
 ```
 
