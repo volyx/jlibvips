@@ -11,7 +11,7 @@ A Java interface to [llibvips](http://libvips.github.io/libvips/), the fast imag
 ```
 
 ```groovy
-implementation 'io.github.codecitizen:jlibvips:1.0'
+implementation 'io.github.codecitizen:jlibvips:1.1'
 ```
 
 **Example: Generate a Thumbnail for a PDF.**
