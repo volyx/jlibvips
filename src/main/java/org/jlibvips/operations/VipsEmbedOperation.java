@@ -5,6 +5,7 @@ import org.jlibvips.VipsExtend;
 import org.jlibvips.VipsImage;
 import org.jlibvips.exceptions.VipsException;
 import org.jlibvips.jna.VipsBindings;
+import org.jlibvips.jna.VipsBindingsSingleton;
 import org.jlibvips.util.Varargs;
 import org.jlibvips.util.VipsUtils;
 
@@ -30,7 +31,7 @@ public class VipsEmbedOperation {
 
     public VipsImage create() {
         var out = new Pointer[1];
-        int ret = VipsBindings.INSTANCE.vips_embed(this.in, out, x, y, width, height,
+        int ret = VipsBindingsSingleton.instance().vips_embed(this.in, out, x, y, width, height,
                 new Varargs()
                         .add("extend", toOrdinal(extend))
                         .add("background", background)

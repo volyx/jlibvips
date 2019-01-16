@@ -1,12 +1,9 @@
 package org.jlibvips.jna;
 
 import com.sun.jna.Library;
-import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 
 public interface VipsBindings extends Library {
-
-    VipsBindings INSTANCE = Native.load("libvips.42.dylib", VipsBindings.class);
 
     Pointer vips_image_new_from_file(String fileName, Object...args);
 

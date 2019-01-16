@@ -3,11 +3,16 @@ package org.jlibvips.operations
 import org.jlibvips.TestUtils
 import org.jlibvips.VipsDirection
 import org.jlibvips.VipsImage
+import org.jlibvips.jna.VipsBindingsSingleton
 import spock.lang.Specification
 
 import java.nio.file.Files
 
 class VipsJoinOperationSpec extends Specification {
+
+    def setupSpec() {
+        VipsBindingsSingleton.configure("/usr/local/lib/libvips.so")
+    }
 
     def "Join images together."() {
         given:

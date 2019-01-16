@@ -3,6 +3,7 @@ package org.jlibvips.operations;
 import org.jlibvips.VipsImage;
 import org.jlibvips.exceptions.VipsException;
 import org.jlibvips.jna.VipsBindings;
+import org.jlibvips.jna.VipsBindingsSingleton;
 import org.jlibvips.util.Varargs;
 import org.jlibvips.util.VipsUtils;
 
@@ -30,7 +31,7 @@ public class JpegSaveOperation implements SaveOperation {
     @Override
     public Path save() throws IOException, VipsException {
         Path path = Files.createTempFile("jlibvips", ".jpg");
-        int ret = VipsBindings.INSTANCE.vips_jpegsave(image.getPtr(), path.toString(),
+        int ret = VipsBindingsSingleton.instance().vips_jpegsave(image.getPtr(), path.toString(),
                 new Varargs().add("Q", quality)
                         .add("optimize_coding", VipsUtils.booleanToInteger(optimizeCoding))
                         .add("interlace", VipsUtils.booleanToInteger(interlace))

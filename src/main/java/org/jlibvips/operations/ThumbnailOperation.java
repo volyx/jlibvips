@@ -1,12 +1,12 @@
 package org.jlibvips.operations;
 
+import com.sun.jna.Pointer;
 import org.jlibvips.VipsImage;
 import org.jlibvips.VipsInteresting;
 import org.jlibvips.VipsSize;
 import org.jlibvips.exceptions.FailedOnThumbnailException;
-import org.jlibvips.jna.VipsBindings;
+import org.jlibvips.jna.VipsBindingsSingleton;
 import org.jlibvips.util.Varargs;
-import com.sun.jna.Pointer;
 
 import static org.jlibvips.util.VipsUtils.booleanToInteger;
 import static org.jlibvips.util.VipsUtils.toOrdinal;
@@ -43,7 +43,7 @@ public class ThumbnailOperation {
      */
     public VipsImage create() {
         var pointers = new Pointer[1];
-        int ret = VipsBindings.INSTANCE.vips_thumbnail_image(image.getPtr(), pointers, width,
+        int ret = VipsBindingsSingleton.instance().vips_thumbnail_image(image.getPtr(), pointers, width,
                 new Varargs().add("auto_rotate", booleanToInteger(autoRotate))
                         .add("size", toOrdinal(size))
                         .add("crop", toOrdinal(crop))
