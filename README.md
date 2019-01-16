@@ -2,6 +2,12 @@
 
 A Java interface to [llibvips](http://libvips.github.io/libvips/), the fast image processing library with low memory needs.
 
+**Configure Path to libvips Library:**
+
+```java
+VipsBindingsSingleton.configure("/usr/local/lib/libvips.so");
+```
+
 **Example: Generate a Thumbnail for a PDF.**
 
 ```java

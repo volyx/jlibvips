@@ -1,5 +1,6 @@
 package org.jlibvips
 
+import org.jlibvips.jna.VipsBindingsSingleton
 import spock.lang.Specification
 
 import java.nio.file.Files
@@ -7,6 +8,10 @@ import java.nio.file.Files
 import static TestUtils.*
 
 class VipsImageSpec extends Specification {
+
+    def setupSpec() {
+        VipsBindingsSingleton.configure("/usr/local/lib/libvips.so")
+    }
 
     def "get resolution of image"() {
         given: "a arbitrary image file"

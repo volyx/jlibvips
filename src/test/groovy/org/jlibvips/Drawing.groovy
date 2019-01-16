@@ -1,5 +1,6 @@
 package org.jlibvips
 
+import org.jlibvips.jna.VipsBindingsSingleton
 import spock.lang.Specification
 
 import java.nio.file.Files
@@ -7,6 +8,10 @@ import java.nio.file.Files
 import static org.jlibvips.TestUtils.copyResourceToFS
 
 class Drawing extends Specification {
+
+    def setupSpec() {
+        VipsBindingsSingleton.configure("/usr/local/lib/libvips.so")
+    }
 
     def "Draw a colored rect with SVG."() {
         given:

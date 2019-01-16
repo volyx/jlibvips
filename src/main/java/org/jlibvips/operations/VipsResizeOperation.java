@@ -5,6 +5,7 @@ import org.jlibvips.VipsImage;
 import org.jlibvips.VipsKernel;
 import org.jlibvips.exceptions.VipsException;
 import org.jlibvips.jna.VipsBindings;
+import org.jlibvips.jna.VipsBindingsSingleton;
 import org.jlibvips.util.Varargs;
 
 import static org.jlibvips.util.VipsUtils.toOrdinal;
@@ -24,7 +25,7 @@ public class VipsResizeOperation {
 
     public VipsImage create() {
         var out = new Pointer[1];
-        int ret = VipsBindings.INSTANCE.vips_resize(this.in, out, scale,
+        int ret = VipsBindingsSingleton.instance().vips_resize(this.in, out, scale,
                 new Varargs()
                         .add("vscale", verticalScale)
                         .add("kernel", toOrdinal(kernel))

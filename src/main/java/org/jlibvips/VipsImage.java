@@ -1,10 +1,10 @@
 package org.jlibvips;
 
+import com.sun.jna.Pointer;
 import org.jlibvips.exceptions.CouldNotLoadPdfVipsException;
 import org.jlibvips.exceptions.VipsException;
-import org.jlibvips.jna.VipsBindings;
+import org.jlibvips.jna.VipsBindingsSingleton;
 import org.jlibvips.operations.*;
-import com.sun.jna.Pointer;
 
 import java.nio.file.Path;
 
@@ -46,7 +46,7 @@ public class VipsImage {
         VipsImage image;
         do {
             Pointer[] ptr = new Pointer[1];
-            var ret = VipsBindings.INSTANCE.vips_pdfload(p.toString(), ptr, "scale", scale, "page", page, null);
+            var ret = VipsBindingsSingleton.instance().vips_pdfload(p.toString(), ptr, "scale", scale, "page", page, null);
             if(ret != 0) {
                 throw new CouldNotLoadPdfVipsException(ret);
             }
@@ -74,7 +74,7 @@ public class VipsImage {
      * @see <a href="http://libvips.github.io/libvips/API/current/VipsImage.html#vips-image-new-from-file">Native Function</a>
      */
     public static VipsImage fromFile(Path p) {
-        var ptr = VipsBindings.INSTANCE.vips_image_new_from_file(p.toString());
+        var ptr = VipsBindingsSingleton.instance().vips_image_new_from_file(p.toString());
         return new VipsImage(ptr);
     }
 
@@ -187,7 +187,7 @@ public class VipsImage {
      * @see <a href="http://libvips.github.io/libvips/API/current/libvips-header.html#vips-image-get-width">vips_image_get_width()</a>
      */
     public int getWidth() {
-        return VipsBindings.INSTANCE.vips_image_get_width(ptr);
+        return VipsBindingsSingleton.instance().vips_image_get_width(ptr);
     }
 
     /**
@@ -197,7 +197,7 @@ public class VipsImage {
      * @see <a href="http://libvips.github.io/libvips/API/current/libvips-header.html#vips-image-get-height">vips_image_get_height()</a>
      */
     public int getHeight() {
-        return VipsBindings.INSTANCE.vips_image_get_height(ptr);
+        return VipsBindingsSingleton.instance().vips_image_get_height(ptr);
     }
 
     /**
@@ -207,7 +207,7 @@ public class VipsImage {
      * @see <a href="http://libvips.github.io/libvips/API/current/libvips-header.html#vips-image-get-bands">http://libvips.github.io/libvips/API/current/libvips-header.html#vips-image-get-bands()</a>
      */
     public int getBands() {
-        return VipsBindings.INSTANCE.vips_image_get_bands(ptr);
+        return VipsBindingsSingleton.instance().vips_image_get_bands(ptr);
     }
 
     /**
@@ -251,7 +251,7 @@ public class VipsImage {
      */
     public VipsImage extractArea(int left, int top, int width, int height) {
         var out = new Pointer[1];
-        int ret = VipsBindings.INSTANCE.vips_extract_area(this.ptr, out, left, top, width, height);
+        int ret = VipsBindingsSingleton.instance().vips_extract_area(this.ptr, out, left, top, width, height);
         if(ret != 0) {
             throw new VipsException("vips_extract_area", ret);
         }

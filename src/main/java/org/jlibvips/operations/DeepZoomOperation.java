@@ -6,6 +6,7 @@ import org.jlibvips.VipsAngle;
 import org.jlibvips.VipsImage;
 import org.jlibvips.exceptions.DeepZoomSaveException;
 import org.jlibvips.jna.VipsBindings;
+import org.jlibvips.jna.VipsBindingsSingleton;
 import org.jlibvips.util.Varargs;
 import com.sun.jna.Pointer;
 
@@ -43,7 +44,7 @@ public class DeepZoomOperation {
     }
 
     public void save() {
-        int ret = VipsBindings.INSTANCE.vips_dzsave(image.getPtr(), outDir.toString(),
+        int ret = VipsBindingsSingleton.instance().vips_dzsave(image.getPtr(), outDir.toString(),
                 new Varargs()
                         .add("basename", baseName)
                         .add("layout", toOrdinal(layout))
@@ -100,7 +101,7 @@ public class DeepZoomOperation {
      */
     public DeepZoomOperation background(double[] background) {
         this.background = background != null?
-                VipsBindings.INSTANCE.vips_array_double_new(background, background.length) : null;
+                VipsBindingsSingleton.instance().vips_array_double_new(background, background.length) : null;
         return this;
     }
 

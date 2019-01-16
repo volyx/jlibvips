@@ -3,6 +3,7 @@ package org.jlibvips.operations;
 import org.jlibvips.VipsImage;
 import org.jlibvips.exceptions.VipsException;
 import org.jlibvips.jna.VipsBindings;
+import org.jlibvips.jna.VipsBindingsSingleton;
 import org.jlibvips.util.Varargs;
 
 import java.util.List;
@@ -32,9 +33,9 @@ public class DrawRectOperation {
                 .toArray();
         int ret;
         if(ink.length == 1) {
-            ret = VipsBindings.INSTANCE.vips_draw_rect1(image.getPtr(), ink[0], left, top, width, height, args);
+            ret = VipsBindingsSingleton.instance().vips_draw_rect1(image.getPtr(), ink[0], left, top, width, height, args);
         } else {
-            ret = VipsBindings.INSTANCE.vips_draw_rect(image.getPtr(), toPointer(ink), ink.length, left, top, width, height, args);
+            ret = VipsBindingsSingleton.instance().vips_draw_rect(image.getPtr(), toPointer(ink), ink.length, left, top, width, height, args);
         }
         if(ret != 0) {
             throw new VipsException("vips_draw_rect(1)", ret);
