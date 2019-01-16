@@ -1,5 +1,6 @@
 package org.jlibvips.operations
 
+import org.jlibvips.jna.VipsBindingsSingleton
 import spock.lang.Specification
 import org.jlibvips.VipsImage
 
@@ -8,6 +9,10 @@ import java.nio.file.Files
 import static org.jlibvips.TestUtils.*
 
 class InsertOperationSpec extends Specification {
+
+    def setupSpec() {
+        VipsBindingsSingleton.configure("/usr/local/lib/libvips.so")
+    }
 
     def "Should insert a 500x500 JPEG into a full HD png on it's lower right corner."() {
         given:

@@ -3,6 +3,7 @@ package org.jlibvips.operations;
 import org.jlibvips.jna.VipsBindings;
 import org.jlibvips.VipsImage;
 import org.jlibvips.exceptions.WebpConversionException;
+import org.jlibvips.jna.VipsBindingsSingleton;
 import org.jlibvips.util.Varargs;
 import org.jlibvips.util.VipsUtils;
 
@@ -34,7 +35,7 @@ public class WebpSaveOperation implements SaveOperation {
     @Override
     public Path save() throws IOException {
         var path = Files.createTempFile("jlibvips", ".webp");
-        int ret = VipsBindings.INSTANCE.vips_webpsave(image.getPtr(), path.toString(),
+        int ret = VipsBindingsSingleton.instance().vips_webpsave(image.getPtr(), path.toString(),
                 new Varargs()
                         .add("Q", quality)
                         .add("lossless", VipsUtils.booleanToInteger(lossless))

@@ -1,6 +1,7 @@
 package org.jlibvips.operations
 
 import org.jlibvips.VipsImage
+import org.jlibvips.jna.VipsBindingsSingleton
 import spock.lang.Specification
 
 import java.nio.file.Files
@@ -8,6 +9,10 @@ import java.nio.file.Files
 import static org.jlibvips.TestUtils.copyResourceToFS
 
 class DrawRectOperationSpec extends Specification {
+
+    def setupSpec() {
+        VipsBindingsSingleton.configure("/usr/local/lib/libvips.so")
+    }
 
     def "Draw a rectangular black border with a thickness of 10 pixel to a 500 by 500 Jpeg."() {
         given:
