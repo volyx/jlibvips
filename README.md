@@ -2,6 +2,20 @@
 
 A Java interface to [llibvips](http://libvips.github.io/libvips/), the fast image processing library with low memory needs.
 
+**Dependency:**
+
+```xml
+<dependency>
+  <groupId>io.github.codecitizen</groupId>
+  <artifactId>jlibvips</artifactId>
+  <version>1.1</version>
+</dependency>
+```
+
+```groovy
+implementation 'io.github.codecitizen:jlibvips:1.1'
+```
+
 **Configure Path to libvips Library:**
 
 ```java
