@@ -273,4 +273,19 @@ public class VipsImage {
     public VipsEmbedOperation embed(int x, int y, int width, int height) {
         return new VipsEmbedOperation(this.ptr, x, y, width, height);
     }
+
+    /**
+     * Append a single constant band to an image.
+     *
+     * @param c the constant value
+     * @return the new {@link VipsImage}
+     */
+    public VipsImage appendSingleConstantBand(double c) {
+        var pointers = new Pointer[1];
+        var ret = VipsBindingsSingleton.instance().vips_bandjoin_const1(this.ptr, pointers, c);
+        if(ret != 0) {
+            throw new VipsException("vips_bandjoin_const1", ret);
+        }
+        return new VipsImage(pointers[0]);
+    }
 }

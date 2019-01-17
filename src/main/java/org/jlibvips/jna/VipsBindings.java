@@ -33,4 +33,5 @@ public interface VipsBindings extends Library {
     int vips_extract_area(Pointer image, Pointer[] out, int left, int top, int width, int height, Object...args);
     int vips_resize(Pointer in, Pointer[] out, double scale, Object...args);
     int vips_embed(Pointer image, Pointer[] out, int x, int y, int width, int height, Object...args);
+    int vips_bandjoin_const1(Pointer image, Pointer[] out, double c, Object...args);
 }
