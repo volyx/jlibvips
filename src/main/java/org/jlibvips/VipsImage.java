@@ -273,4 +273,8 @@ public class VipsImage {
     public VipsEmbedOperation embed(int x, int y, int width, int height) {
         return new VipsEmbedOperation(this.ptr, x, y, width, height);
     }
+
+    public Composite2Operation composite(VipsImage overlay, VipsBlendMode mode) {
+        return new Composite2Operation(this.ptr, overlay.ptr, mode);
+    }
 }

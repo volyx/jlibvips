@@ -1,0 +1,30 @@
+package org.jlibvips;
+
+public enum VipsBlendMode {
+    Clear,
+    Source,
+    Over,
+    In,
+    Out,
+    Atop,
+    Dest,
+    DestOver,
+    DestIn,
+    DestOut,
+    DestAtop,
+    XOR,
+    AND,
+    Saturate,
+    Multiply,
+    Screen,
+    Overlay,
+    Darken,
+    Lighten,
+    ColourDodge,
+    ColourBurn,
+    HardLight,
+    SoftLight,
+    Difference,
+    Exclusion,
+    Last
+}
