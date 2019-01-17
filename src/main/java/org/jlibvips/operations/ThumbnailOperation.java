@@ -42,7 +42,7 @@ public class ThumbnailOperation {
      * @return new {@link VipsImage}
      */
     public VipsImage create() {
-        var pointers = new Pointer[1];
+        Pointer[] pointers = new Pointer[1];
         int ret = VipsBindingsSingleton.instance().vips_thumbnail_image(image.getPtr(), pointers, width,
                 new Varargs().add("auto_rotate", booleanToInteger(autoRotate))
                         .add("size", toOrdinal(size))

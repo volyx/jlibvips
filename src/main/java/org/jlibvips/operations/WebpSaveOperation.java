@@ -34,7 +34,7 @@ public class WebpSaveOperation implements SaveOperation {
 
     @Override
     public Path save() throws IOException {
-        var path = Files.createTempFile("jlibvips", ".webp");
+        Path path = Files.createTempFile("jlibvips", ".webp");
         int ret = VipsBindingsSingleton.instance().vips_webpsave(image.getPtr(), path.toString(),
                 new Varargs()
                         .add("Q", quality)

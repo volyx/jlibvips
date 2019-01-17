@@ -25,7 +25,7 @@ public class VipsJoinOperation {
     }
 
     public VipsImage create() {
-        var out = new Pointer[1];
+        Pointer[] out = new Pointer[1];
         int ret = VipsBindingsSingleton.instance().vips_join(in1, in2, out, direction.ordinal(),
                 new Varargs()
                         .add("expand", VipsUtils.booleanToInteger(expand))

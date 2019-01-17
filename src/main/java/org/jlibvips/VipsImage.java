@@ -42,11 +42,11 @@ public class VipsImage {
     public static VipsImage fromPdf(Path p, int page) {
         // Due to excessive testing we set 6 to be the maximum scale parameter and decrease by 0.1 until we reach a
         // scale working with the limit.
-        var scale = 6.0f;
+        float scale = 6.0f;
         VipsImage image;
         do {
             Pointer[] ptr = new Pointer[1];
-            var ret = VipsBindingsSingleton.instance().vips_pdfload(p.toString(), ptr, "scale", scale, "page", page, null);
+            int ret = VipsBindingsSingleton.instance().vips_pdfload(p.toString(), ptr, "scale", scale, "page", page, null);
             if(ret != 0) {
                 throw new CouldNotLoadPdfVipsException(ret);
             }
@@ -74,7 +74,7 @@ public class VipsImage {
      * @see <a href="http://libvips.github.io/libvips/API/current/VipsImage.html#vips-image-new-from-file">Native Function</a>
      */
     public static VipsImage fromFile(Path p) {
-        var ptr = VipsBindingsSingleton.instance().vips_image_new_from_file(p.toString());
+        Pointer ptr = VipsBindingsSingleton.instance().vips_image_new_from_file(p.toString());
         return new VipsImage(ptr);
     }
 
@@ -250,7 +250,7 @@ public class VipsImage {
      * @return the extracted {@link VipsImage}
      */
     public VipsImage extractArea(int left, int top, int width, int height) {
-        var out = new Pointer[1];
+        Pointer[] out = new Pointer[1];
         int ret = VipsBindingsSingleton.instance().vips_extract_area(this.ptr, out, left, top, width, height);
         if(ret != 0) {
             throw new VipsException("vips_extract_area", ret);

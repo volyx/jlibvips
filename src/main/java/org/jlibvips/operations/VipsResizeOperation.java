@@ -24,7 +24,7 @@ public class VipsResizeOperation {
     }
 
     public VipsImage create() {
-        var out = new Pointer[1];
+        Pointer[] out = new Pointer[1];
         int ret = VipsBindingsSingleton.instance().vips_resize(this.in, out, scale,
                 new Varargs()
                         .add("vscale", verticalScale)

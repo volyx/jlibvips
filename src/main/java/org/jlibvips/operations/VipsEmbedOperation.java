@@ -30,7 +30,7 @@ public class VipsEmbedOperation {
     }
 
     public VipsImage create() {
-        var out = new Pointer[1];
+        Pointer[] out = new Pointer[1];
         int ret = VipsBindingsSingleton.instance().vips_embed(this.in, out, x, y, width, height,
                 new Varargs()
                         .add("extend", toOrdinal(extend))

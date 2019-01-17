@@ -28,7 +28,7 @@ public class DrawRectOperation {
     public void draw() {
         if(ink == null || ink.length == 0)
             ink = new double[]{0.0};
-        var args = new Varargs()
+        Object[] args = new Varargs()
                 .add("fill", booleanToInteger(fill))
                 .toArray();
         int ret;

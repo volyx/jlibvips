@@ -43,7 +43,7 @@ public class VipsInsertOperation {
     }
 
     public VipsImage create() {
-        var out = new Pointer[1];
+        Pointer[] out = new Pointer[1];
         int ret = VipsBindingsSingleton.instance().vips_insert(main.getPtr(), sub.getPtr(), out, x, y,
                 new Varargs()
                         .add("expand", booleanToInteger(expand))

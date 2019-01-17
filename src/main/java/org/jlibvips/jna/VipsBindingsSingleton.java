@@ -15,7 +15,7 @@ public class VipsBindingsSingleton {
 
     public static VipsBindings instance() {
         if(INSTANCE == null) {
-            if(libraryPath == null || libraryPath.isBlank()) {
+            if(libraryPath == null || libraryPath.isEmpty()) {
                 throw new IllegalStateException("Please call VipsBindingsSingleton.configure(...) before getting the instance.");
             }
             INSTANCE = Native.load(libraryPath, VipsBindings.class);

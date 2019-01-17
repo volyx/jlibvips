@@ -18,7 +18,6 @@ public enum VipsAngle {
      *
      * @param value degrees
      * @return the {@link VipsAngle}
-     * @throws IllegalArgumentException when angle is not 0, 90, 180 or 270.
      */
     public static VipsAngle fromInteger(int value) {
         switch (value) {

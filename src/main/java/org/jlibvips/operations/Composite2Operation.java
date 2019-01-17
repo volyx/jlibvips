@@ -25,7 +25,7 @@ public class Composite2Operation {
     }
 
     public VipsImage create() {
-        var out = new Pointer[1];
+        Pointer[] out = new Pointer[1];
         int ret = VipsBindingsSingleton.instance().vips_composite2(base, overlay, out, VipsUtils.toOrdinal(blendMode),
                 new Varargs().add("composition_space", VipsUtils.toOrdinal(compositionSpace))
                         .add("premultiplied", VipsUtils.booleanToInteger(premultiplied))
