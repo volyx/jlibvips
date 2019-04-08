@@ -3,6 +3,7 @@ package org.jlibvips;
 import com.sun.jna.Pointer;
 import org.jlibvips.exceptions.CouldNotLoadPdfVipsException;
 import org.jlibvips.exceptions.VipsException;
+import org.jlibvips.jna.VipsBindings;
 import org.jlibvips.jna.VipsBindingsSingleton;
 import org.jlibvips.operations.*;
 
@@ -75,6 +76,20 @@ public class VipsImage {
      */
     public static VipsImage fromFile(Path p) {
         Pointer ptr = VipsBindingsSingleton.instance().vips_image_new_from_file(p.toString());
+        return new VipsImage(ptr);
+    }
+
+    /**
+     * Loads a {@link VipsImage} from the given String's content. Handy for quickly drawing SVGs.
+     *
+     * @param string image content
+     * @return the {@link VipsImage}
+     */
+    public static VipsImage fromString(String string) {
+        if(string == null)
+            return null;
+        byte[] buffer = string.getBytes();
+        Pointer ptr = VipsBindingsSingleton.instance().vips_image_new_from_buffer(buffer, buffer.length, "");
         return new VipsImage(ptr);
     }
 

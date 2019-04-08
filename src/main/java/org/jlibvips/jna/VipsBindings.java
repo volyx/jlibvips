@@ -6,6 +6,7 @@ import com.sun.jna.Pointer;
 public interface VipsBindings extends Library {
 
     Pointer vips_image_new_from_file(String fileName, Object...args);
+    Pointer vips_image_new_from_buffer(byte[] buf, long length, String optionString, Object...args);
 
     int vips_pdfload(String fileName, Pointer[] pointer, Object...args);
 
