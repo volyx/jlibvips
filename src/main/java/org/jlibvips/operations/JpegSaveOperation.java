@@ -39,7 +39,7 @@ public class JpegSaveOperation implements SaveOperation {
                         .add("no_subsample", VipsUtils.booleanToInteger(noSubsample))
                         .add("trellis_quant", VipsUtils.booleanToInteger(trellisQuant))
                         .add("overshoot_deringing", VipsUtils.booleanToInteger(overshootDeringing))
-                        .add("optimize_scans", optimizeScans).toArray());
+                        .add("optimize_scans", VipsUtils.booleanToInteger(optimizeScans)).toArray());
         if(ret != 0) {
             throw new VipsException("vips_jpegsave", ret);
         }
