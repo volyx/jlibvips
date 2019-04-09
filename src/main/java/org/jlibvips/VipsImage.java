@@ -270,6 +270,19 @@ public class VipsImage {
         return new VipsResizeOperation(this.ptr, scale);
     }
 
+    /**
+     * Reduce input by a pair of factors with a pair of 1D kernels. This will not work well for shrink factors greater than three.
+     *
+     * <a href="https://jcupitt.github.io/libvips/API/current/libvips-resample.html#vips-reduce">vips-reduce</a>
+     *
+     * @param hshrink horizontal shrink
+     * @param vshrink vertical shrink
+     * @return the {@link VipsReduceOperation}
+     */
+    public VipsReduceOperation reduce(double hshrink, double vshrink) {
+        return new VipsReduceOperation(this.ptr, hshrink, vshrink);
+    }
+
     public VipsEmbedOperation embed(int x, int y, int width, int height) {
         return new VipsEmbedOperation(this.ptr, x, y, width, height);
     }
