@@ -295,4 +295,14 @@ public class VipsImage {
     public Composite2Operation composite(VipsImage overlay, VipsBlendMode mode) {
         return new Composite2Operation(this.ptr, overlay.ptr, mode);
     }
+
+    public VipsImage merge(VipsImage sec, VipsDirection direction, int dx, int dy) {
+        Pointer[] out = new Pointer[1];
+        int ret = VipsBindingsSingleton.instance()
+                .vips_merge(this.ptr, sec.ptr, out, direction.ordinal(), dx, dy);
+        if(ret != 0) {
+            throw new VipsException("vips_merge", ret);
+        }
+        return new VipsImage(out[0]);
+    }
 }

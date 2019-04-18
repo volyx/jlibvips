@@ -2,6 +2,7 @@ package org.jlibvips.jna;
 
 import com.sun.jna.Library;
 import com.sun.jna.Pointer;
+import org.jlibvips.VipsDirection;
 
 public interface VipsBindings extends Library {
 
@@ -35,4 +36,5 @@ public interface VipsBindings extends Library {
     int vips_resize(Pointer in, Pointer[] out, double scale, Object...args);
     int vips_embed(Pointer image, Pointer[] out, int x, int y, int width, int height, Object...args);
     int vips_composite2(Pointer base, Pointer overlay, Pointer[] out, int mode, Object...args);
+    int vips_merge(Pointer ref, Pointer sec, Pointer[] out, int direction, int dx, int dy, Object...args);
 }
