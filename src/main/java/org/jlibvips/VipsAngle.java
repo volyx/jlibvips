@@ -29,4 +29,18 @@ public enum VipsAngle {
                 throw new IllegalArgumentException("Allowed VipsAngle's are [0°, 90°, 180°, 270°].");
         }
     }
+
+
+    public double toDouble() {
+        switch (this) {
+            case D90:
+                return 90.0;
+            case D180:
+                return 180.0;
+            case D270:
+                return 270.0;
+            default:
+                return 0.0;
+        }
+    }
 }
