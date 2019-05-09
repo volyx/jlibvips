@@ -305,4 +305,16 @@ public class VipsImage {
         }
         return new VipsImage(out[0]);
     }
+
+    /**
+     * Rotate the image.
+     *
+     * http://libvips.github.io/libvips/API/current/libvips-resample.html#vips-rotate
+     *
+     * @param angle {@link VipsAngle}
+     * @return {@link VipsRotateOperation}
+     */
+    public VipsRotateOperation rotate(VipsAngle angle) {
+        return new VipsRotateOperation(this, angle);
+    }
 }
