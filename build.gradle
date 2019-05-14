@@ -71,7 +71,12 @@ signing {
 
 uploadArchives {
     repositories {
+        if (!project.hasProperty('ossrhUsername') || !project.hasProperty('ossrhPassword')) {
+            println "skip uploadArchives"
+            return ;
+        }
         mavenDeployer {
+
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
