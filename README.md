@@ -8,12 +8,12 @@ A Java interface to [llibvips](http://libvips.github.io/libvips/), the fast imag
 <dependency>
   <groupId>io.github.codecitizen</groupId>
   <artifactId>jlibvips</artifactId>
-  <version>1.1</version>
+  <version>1.2.1</version>
 </dependency>
 ```
 
 ```groovy
-implementation 'io.github.codecitizen:jlibvips:1.1'
+implementation 'io.github.codecitizen:jlibvips:1.2.1'
 ```
 
 **Configure Path to libvips Library:**
