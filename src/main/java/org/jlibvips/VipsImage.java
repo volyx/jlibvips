@@ -317,4 +317,8 @@ public class VipsImage {
     public VipsRotateOperation rotate(VipsAngle angle) {
         return new VipsRotateOperation(this, angle);
     }
+
+    public SimilarityOperation similarity() {
+        return new SimilarityOperation(this);
+    }
 }
