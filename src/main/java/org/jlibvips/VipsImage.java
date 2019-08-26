@@ -5,9 +5,15 @@ import org.jlibvips.exceptions.CouldNotLoadPdfVipsException;
 import org.jlibvips.exceptions.VipsException;
 import org.jlibvips.jna.VipsBindings;
 import org.jlibvips.jna.VipsBindingsSingleton;
+import org.jlibvips.jna.glib.GLibBindingsSingleton;
+import org.jlibvips.jna.glib.GLibLogHandler;
+import org.jlibvips.jna.glib.GLogLevelFlags;
 import org.jlibvips.operations.*;
 
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.BiConsumer;
 
 /**
  * An image, residing in memory or disk, managed by libvips. Instance methods provide transformations and queries on
@@ -94,6 +100,15 @@ public class VipsImage {
         byte[] buffer = string.getBytes();
         Pointer ptr = VipsBindingsSingleton.instance().vips_image_new_from_buffer(buffer, buffer.length, "");
         return new VipsImage(ptr);
+    }
+
+    public static void registerLogHandler(List<GLogLevelFlags> levels, BiConsumer<Integer,String> loggingFunction) {
+        int flags = Arrays.stream(GLogLevelFlags.values())
+                .map(GLogLevelFlags::getVal)
+                .reduce((l1, l2) -> l1 | l2).orElse(GLogLevelFlags.G_LOG_LEVEL_DEBUG.getVal());
+        GLibLogHandler handler = (d, f, m, p) -> loggingFunction.accept(f, m);
+        GLibBindingsSingleton.instance()
+                .g_log_set_handler("VIPS", flags, handler, null);
     }
 
     private final Pointer ptr;
