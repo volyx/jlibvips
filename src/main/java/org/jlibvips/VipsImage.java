@@ -102,11 +102,17 @@ public class VipsImage {
         return new VipsImage(ptr);
     }
 
-    public static void registerLogHandler(List<GLogLevelFlags> levels, BiConsumer<Integer,String> loggingFunction) {
-        int flags = Arrays.stream(GLogLevelFlags.values())
+  /**
+   * Registers a new logging handler for the libvips GLib logs.
+   *
+   * @param levels the subscribed {@link org.jlibvips.jna.glib.GLogLevelFlags}.
+   * @param loggingFunction the logging function taking the flag as first and log message as second parameter.
+   */
+    public static void registerLogHandler(List<GLogLevelFlags> levels, BiConsumer<GLogLevelFlags,String> loggingFunction) {
+        int flags = levels.stream()
                 .map(GLogLevelFlags::getVal)
                 .reduce((l1, l2) -> l1 | l2).orElse(GLogLevelFlags.G_LOG_LEVEL_DEBUG.getVal());
-        GLibLogHandler handler = (d, f, m, p) -> loggingFunction.accept(f, m);
+        GLibLogHandler handler = (d, f, m, p) -> loggingFunction.accept(GLogLevelFlags.fromVal(f), m);
         GLibBindingsSingleton.instance()
                 .g_log_set_handler("VIPS", flags, handler, null);
     }

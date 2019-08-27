@@ -1,13 +1,14 @@
 package org.jlibvips.jna.glib
 
-import org.jlibvips.DeepZoomContainer
-import org.jlibvips.DeepZoomLayouts
-import org.jlibvips.VipsAngle
-import org.jlibvips.VipsExtend
+
 import org.jlibvips.VipsImage
+import org.jlibvips.VipsInteresting
+import org.jlibvips.VipsSize
 import spock.lang.Specification
 
-import static org.jlibvips.TestUtils.*
+import java.nio.file.Files
+
+import static org.jlibvips.TestUtils.copyResourceToFS
 
 class GLibLogging extends Specification {
 
@@ -29,24 +30,22 @@ class GLibLogging extends Specification {
                                       GLogLevelFlags.G_LOG_LEVEL_INFO,
                                       GLogLevelFlags.G_LOG_LEVEL_MESSAGE,
                                       GLogLevelFlags.G_LOG_LEVEL_WARNING], { flags, message ->
-            println("LIBVIPSLOG: $message")
+            println("VIPS[$flags]: $message")
         })
         when:
         def file = copyResourceToFS("500x500.jpg")
         def image = VipsImage.fromFile(file)
-        def outDir = newTempDir()
-        image.deepZoom(outDir)
-                .layout(DeepZoomLayouts.Google)
-                .background([0.0f, 0.0f, 0.0f])
-                .rotate(VipsAngle.D90)
-                .container(DeepZoomContainer.FileSystem)
-                .tileSize(256)
-                .centre()
-                .strip()
-                .suffix(".jpg[Q=85]")
-                .save()
-        then:
-        !outDir.empty
+        def thumbnail = image.thumbnail(100)
+                .autoRotate()
+                .size(VipsSize.Nearest)
+                .crop(VipsInteresting.Attention)
+                .linear()
+                .create()
+        then: "the resulting image is resized to the specifications"
+        thumbnail.width == 100
+        thumbnail.height == 100
+        cleanup:
+        Files.deleteIfExists file
     }
 
 }
