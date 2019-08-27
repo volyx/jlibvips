@@ -25,7 +25,7 @@ public class VipsReduceOperation {
     }
 
     public VipsImage create() {
-        var out = new Pointer[1];
+        Pointer[] out = new Pointer[1];
         int ret = VipsBindingsSingleton.instance().vips_reduce(this.in, out, hshrink, vshrink,
                 new Varargs()
                         .add("centre", booleanToInteger(centre))
