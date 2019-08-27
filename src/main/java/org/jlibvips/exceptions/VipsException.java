@@ -11,6 +11,12 @@ public class VipsException extends RuntimeException {
         this.returnValue = returnValue;
     }
 
+    public VipsException(String operation, Throwable cause) {
+        super(String.format("VipsBindings operation %s failed with Exception.", operation), cause);
+        this.operation = operation;
+        this.returnValue = -1;
+    }
+
     public String getOperation() {
         return operation;
     }
