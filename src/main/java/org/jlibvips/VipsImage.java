@@ -355,4 +355,23 @@ public class VipsImage {
     public SimilarityOperation similarity() {
         return new SimilarityOperation(this);
     }
+
+    /**
+     * http://libvips.github.io/libvips/API/current/libvips-convolution.html#vips-gaussblur
+     *
+     * This operator runs vips_gaussmat() and vips_convsep() for you on an image. Set min_ampl smaller to generate a larger, more accurate mask. Set sigma larger to make the blur more blurry.
+     *
+     * See also: vips_gaussmat(), vips_convsep().
+     *
+     * Optional arguments:
+     *
+     *     precision : VipsPrecision, precision for blur, default int
+     *
+     *     min_ampl : minimum amplitude, default 0.2
+     * @param sigma
+     * @return {@link VipsGaussBlurOperation}
+     */
+    public VipsGaussBlurOperation gaussBlur(double sigma) {
+        return new VipsGaussBlurOperation(this.ptr, sigma);
+    }
 }

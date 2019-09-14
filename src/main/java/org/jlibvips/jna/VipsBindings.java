@@ -41,4 +41,6 @@ public interface VipsBindings extends Library {
     int vips_merge(Pointer ref, Pointer sec, Pointer[] out, int direction, int dx, int dy, Object...args);
     int vips_rotate(Pointer in, Pointer[] out, double angle, Object...args);
     int vips_similarity(Pointer in, Pointer[] out, Object...args);
+
+    int vips_gaussblur(Pointer in, Pointer[] out, double sigma, Object...args);
 }
